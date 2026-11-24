@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Controle de Gastos</title>
+  <meta name="description" content="Registre entradas e saídas, veja o saldo do mês e exporte seus dados. Feito com HTML, CSS e JavaScript.">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topo">
+    <h1>Controle de Gastos</h1>
+    <label class="filtro-mes">Mês
+      <input type="month" id="filtro-mes">
+    </label>
+  </header>
+
+  <main class="layout">
+    <section class="resumo" aria-labelledby="titulo-saldo">
+      <p id="titulo-saldo" class="rotulo">Saldo do mês</p>
+      <p class="saldo" id="saldo">R$ 0,00</p>
+      <div class="barra" role="img" aria-label="Proporção entre entradas e saídas" id="barra">
+        <span class="barra-entrada" id="barra-entrada"></span>
+        <span class="barra-saida" id="barra-saida"></span>
+      </div>
+      <dl class="totais">
+        <div>
+          <dt>Entradas</dt>
+          <dd class="valor-entrada" id="total-entradas">R$ 0,00</dd>
+        </div>
+        <div>
+          <dt>Saídas</dt>
+          <dd class="valor-saida" id="total-saidas">R$ 0,00</dd>
+        </div>
+      </dl>
+    </section>
+
+    <section class="cadastro" aria-labelledby="titulo-form">
+      <h2 id="titulo-form">Novo lançamento</h2>
+      <form id="form" novalidate>
+        <div class="tipo" role="radiogroup" aria-label="Tipo de lançamento">
+          <label><input type="radio" name="tipo" value="saida" checked> Saída</label>
+          <label><input type="radio" name="tipo" value="entrada"> Entrada</label>
+        </div>
+
+        <label for="descricao">Descrição</label>
+        <input id="descricao" name="descricao" type="text" maxlength="60" placeholder="Ex.: Mercado" required>
+
+        <div class="linha">
+          <div>
+            <label for="valor">Valor (R$)</label>
+            <input id="valor" name="valor" type="number" min="0.01" step="0.01" inputmode="decimal" placeholder="0,00" required>
+          </div>
+          <div>
+            <label for="data">Data</label>
+            <input id="data" name="data" type="date" required>
+          </div>
+        </div>
+
+        <label for="categoria">Categoria</label>
+        <select id="categoria" name="categoria">
+          <option>Alimentação</option>
+          <option>Transporte</option>
+          <option>Estudos</option>
+          <option>Lazer</option>
+          <option>Moradia</option>
+          <option>Saúde</option>
+          <option>Salário</option>
+          <option>Outros</option>
+        </select>
+
+        <p class="erro" id="erro" role="alert" hidden></p>
+        <button type="submit" class="botao">Adicionar lançamento</button>
+      </form>
+    </section>
+
+    <section class="lista" aria-labelledby="titulo-lista">
+      <div class="lista-topo">
+        <h2 id="titulo-lista">Lançamentos</h2>
+        <button type="button" class="botao-secundario" id="exportar">Exportar CSV</button>
+      </div>
+      <ul id="lancamentos"></ul>
+      <p class="vazio" id="vazio">Nenhum lançamento neste mês. Preencha o formulário para adicionar o primeiro.</p>
+    </section>
+  </main>
+
+  <footer class="rodape">
+    Os dados ficam salvos só neste navegador (localStorage).
+  </footer>
+
+  <script src="js/logica.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
